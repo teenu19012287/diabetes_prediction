@@ -1,15 +1,13 @@
 #pip install streamlit
 #pip install pandas
 #pip install sklearn
-
-
 # IMPORT STATEMENTS
 import streamlit as st
 import pandas as pd
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
-import plotly.figure_factory as ff
+#import plotly.figure_factory as ff
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import train_test_split
@@ -17,13 +15,14 @@ import seaborn as sns
 
 
 
-df = pd.read_csv(![](diabetes.csv))
+df = pd.read_csv(r'C:\Users\Teenu\diabetes_prediction\diabetes.csv')
 
 # HEADINGS
 st.title('Diabetes Checkup')
 st.sidebar.header('Patient Data')
-st.subheader('Training Data Stats')
 st.write(df.describe())
+st.subheader('Training Data Stats')
+st.bar_chart(df)
 
 
 # X AND Y DATA
@@ -70,6 +69,9 @@ st.write(user_data)
 # MODEL
 rf  = RandomForestClassifier()
 rf.fit(x_train, y_train)
+
+st.subheader('Accuracy: ')
+st.write(str(accuracy_score(y_test,rf.predict(x_test))*100)+'%')
 user_result = rf.predict(user_data)
 
 
